@@ -1,0 +1,82 @@
+﻿@model IEnumerable<SchoolSystem.Models.Class>
+
+@{
+    ViewData["Title"] = "Classes";
+}
+
+<h1>Classes</h1>
+<form method="get" asp-controller="Classes" asp-action="Index" class="mb-3 col-4">
+    <label>Page Size</label>
+    <input type="number" placeholder="Page Size" class="form-control" name="pageSize" value="@ViewBag.pageSize" />
+    <label>Page Number</label>
+    <input type="number" placeholder="Page Number" class="form-control" name="pageNumber" value="@ViewBag.pageNumber" />
+    <div class="input-group ">
+        <input type="text" placeholder="Search" class="form-control" name="search" value="@ViewBag.search" />
+        <br />
+        <button type="submit" class="btn btn-secondary">
+            <i class="bi bi-search"></i>
+        </button>
+    </div>
+</form>
+<p>
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <div style="width:50%;float:left">
+                    @Html.DisplayNameFor(model => model.Name)
+                </div>
+                <div style="width:50;float:right;text-align:right">
+                    <a style="text-decoration:none;" asp-action="Index" asp-route-sortType="Name" asp-route-sortOrder="asc"
+                       asp-route-search="@ViewBag.search" asp-route-pageNumber="@ViewBag.pageNumber" asp-route-pageSize="@ViewBag.pageSize">
+                        <i class="bi bi-arrow-up"></i>
+                    </a>
+                    <a style="text-decoration:none;" asp-action="Index" asp-route-sortType="Name" asp-route-sortOrder="desc"
+                       asp-route-search="@ViewBag.search" asp-route-pageNumber="@ViewBag.pageNumber" asp-route-pageSize="@ViewBag.pageSize">
+                        <i class="bi bi-arrow-down"></i>
+                    </a>
+                </div>
+
+            </th>
+            <th>
+                <div style="width:50%;float:left">
+                    @Html.DisplayNameFor(model => model.SuperVisor)
+                </div>
+                <div style="width:50;float:right;text-align:right">
+                    <a style="text-decoration:none;" asp-action="Index" asp-route-sortType="SuperVisor" asp-route-sortOrder="asc"
+                       asp-route-search="@ViewBag.search" asp-route-pageNumber="@ViewBag.pageNumber" asp-route-pageSize="@ViewBag.pageSize">
+                        <i class="bi bi-arrow-up"></i>
+                    </a>
+                    <a style="text-decoration:none;" asp-action="Index" asp-route-sortType="SuperVisor" asp-route-sortOrder="desc"
+                       asp-route-search="@ViewBag.search" asp-route-pageNumber="@ViewBag.pageNumber" asp-route-pageSize="@ViewBag.pageSize">
+                        <i class="bi bi-arrow-down"></i>
+                    </a>
+                </div>
+
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SuperVisor)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.ClassId" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.ClassId" class="btn btn-success"><i class="bi bi-list-ul"></i></a> | |
+                    <a asp-action="Delete" asp-route-id="@item.ClassId" class="btn btn-warning"><i class="bi bi-trash"></i></a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New <i class="bi bi-person-plus-fill"></i></a>
+</p>
